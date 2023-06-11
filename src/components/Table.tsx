@@ -18,7 +18,7 @@ import {
   ColumnFiltersState,
 } from '@tanstack/react-table';
 import { makeData, Person } from './makeData';
-
+import { Select } from './Select';
 import { QueryClient, useQuery } from 'react-query';
 
 import { fetchData } from './fetchData';
@@ -297,14 +297,13 @@ function TableCustom() {
       </div> */}
       <div className='  my-6 md:w-1/2 mx-auto'>
         <div>
-        
           <input
             type='text'
             placeholder={`Search...`}
             value={globalFilter}
             onChange={(event) => setGlobalFilter(event.target.value)}
             id='search'
-            className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+            className=' border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
           />
         </div>
       </div>
@@ -493,10 +492,11 @@ function TableCustom() {
               const page = e.target.value ? Number(e.target.value) - 1 : 0;
               table.setPageIndex(page);
             }}
-            className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-16 mx-3'
+            className=' text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-16 mx-3 bg-gray-800'
+            style={{height:'36px'}}
           />
         </span>
-        <select
+        {/* <select
           value={table.getState().pagination.pageSize}
           onChange={(e) => {
             table.setPageSize(Number(e.target.value));
@@ -508,7 +508,11 @@ function TableCustom() {
               Show {pageSize}
             </option>
           ))}
-        </select>
+        </select> */}
+        <Select
+          value={table.getState().pagination.pageSize}
+          table={table}
+        />
       </div>
       <div>
         {table.getRowModel().rows.length}
@@ -550,7 +554,7 @@ function Filter({
         }
         placeholder={`Min`}
         className='w-12 border shadow rounded mt-2 ps-2 py-1'
-        style={{backgroundColor:'#101827'}}
+        style={{ backgroundColor: '#101827' }}
       />
       <input
         type='number'
@@ -563,7 +567,7 @@ function Filter({
         }
         placeholder={`Max`}
         className='w-12 border shadow rounded mt-2 ps-2 py-1'
-        style={{backgroundColor:'#101827'}}
+        style={{ backgroundColor: '#101827' }}
       />
     </div>
   ) : (
@@ -573,7 +577,7 @@ function Filter({
       onChange={(e) => column.setFilterValue(e.target.value)}
       placeholder={`Search...`}
       className='w-24 border shadow rounded mt-2 ps-2 py-1'
-      style={{backgroundColor:'#101827'}}
+      style={{ backgroundColor: '#101827' }}
     />
   );
 }
@@ -593,12 +597,15 @@ function IndeterminateCheckbox({
   }, [ref, indeterminate]);
 
   return (
-    <div className="flex items-center mb-4">
+    <div className='flex items-center mb-4'>
       <input
         type='checkbox'
         ref={ref}
-        id="default-checkbox"
-        className={className + ' cursor-pointer w-4 h-4 text-blue-600   rounded  focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600'}
+        id='default-checkbox'
+        className={
+          className +
+          ' cursor-pointer w-4 h-4 text-blue-600   rounded  focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600'
+        }
         {...rest}
       />
       {/* {JSON.stringify(rest.checked && row ||'')} */}
